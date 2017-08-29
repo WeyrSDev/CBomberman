@@ -133,7 +133,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>E:\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,12 +161,16 @@
     <ClCompile Include="Sources\Animation.cpp" />
     <ClCompile Include="Sources\Block.cpp" />
     <ClCompile Include="Sources\Collider.cpp" />
+    <ClCompile Include="Sources\Credits.cpp" />
+    <ClCompile Include="Sources\Menu.cpp" />
     <ClCompile Include="Sources\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Animation.h" />
     <ClInclude Include="Headers\Block.h" />
     <ClInclude Include="Headers\Collider.h" />
+    <ClInclude Include="Headers\Credits.h" />
+    <ClInclude Include="Headers\Menu.h" />
     <ClInclude Include="Headers\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

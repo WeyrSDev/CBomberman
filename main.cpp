@@ -1,8 +1,11 @@
 #include <SFML\Graphics.hpp>
 #include "Headers\Player.h"
 #include "Headers\Block.h"
+#include "Headers\Menu.h"
+#include "Headers\Credits.h"
 
 static const float VIEW_HEIGHT = 750.0f;
+int play = 0;
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
 	float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
@@ -11,17 +14,20 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(750, 750), "C++Bomberman | kRkk", sf::Style::Close | sf::Style::Resize);
+	sf::RenderWindow window(sf::VideoMode(750, 750), "C++Bomberman v0.2", sf::Style::Close | sf::Style::Resize);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, 750.0f));
-	
+
 	sf::Texture playerTxtr;
 	sf::Texture blockTxtr1;
 	sf::Texture blockTxtr2;
-	playerTxtr.loadFromFile("Images/player.png");
-	blockTxtr1.loadFromFile("Images/block1.png");	// by dawidllx#1536
-	blockTxtr2.loadFromFile("Images/block2.png");	// thnx dawidllx
-	Player player(&playerTxtr, sf::Vector2u(3, 3), 0.3f, 120.0f);
 
+	playerTxtr.loadFromFile("resources/images/player.png"); // by creek23 https://opengameart.org/content/tux-the-linux-mascot on licence CC-BB-SA
+	blockTxtr1.loadFromFile("resources/images/block1.png");	// by dawidllx#1536
+	blockTxtr2.loadFromFile("resources/images/block2.png");	// thnx dawidllx
+
+	Menu menu(window.getSize().x, window.getSize().y);
+	Credits credits(window.getSize().x, window.getSize().y);
+	Player player(&playerTxtr, sf::Vector2u(3, 3), 0.3f, 100.0f);
 	Block CornerTL(&blockTxtr2, sf::Vector2f(-50.0f, 170.0f));
 	Block CornerT01(&blockTxtr2, sf::Vector2f(000.0f, 170.0f));
 	Block CornerT02(&blockTxtr2, sf::Vector2f(050.0f, 170.0f));
@@ -266,15 +272,45 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+
 			switch (event.type)
 			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::Resized:
-				ResizeView(window, view);
-				break;
+			 case sf::Event::KeyReleased:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Up:
+					menu.MoveUp();
+					break;
+
+				case sf::Keyboard::Down:
+					menu.MoveDn();
+					break;
+
+				case sf::Keyboard::Return:
+					switch (menu.GetPressedItem())
+					{
+					case 0:
+						play = 1;
+						break;
+					case 1:
+						play = 2;
+						break;
+					case 2:
+						play = 3;
+						break;
+					case 3:
+						window.close();
+						break;
+					}
+					break;
+				} 
 			}
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+
+			if (event.type == sf::Event::Resized)
+				ResizeView(window, view);
 		}
 
 		player.Update(deltaTime);
@@ -396,21 +432,65 @@ int main()
 		block4n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block4o.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 
+		block5b.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5c.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5d.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5e.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5f.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5g.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5h.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5i.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5j.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5k.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5l.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5m.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block5o.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+
 		block6b.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6c.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6d.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6e.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6f.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6g.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6h.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6i.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6j.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6k.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6l.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6m.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block6n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block6o.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+
+		block7b.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7c.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7d.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7e.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7f.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7g.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7h.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7i.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7j.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7k.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7l.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7m.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block7o.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 
 		block8b.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8c.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8d.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8e.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8f.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8g.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8h.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8i.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8j.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8k.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8l.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8m.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block8n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
+		block8o.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 
 		block10b.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 		block10d.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
@@ -421,154 +501,221 @@ int main()
 		block10n.GetCollider().ChckCollision(player.GetCollider(), 1.0f);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			return 0;
+			play = 0;
 
-		view.setCenter(block4h.GetPos());
+		view.setCenter(block5h.GetPos());
 		window.clear(sf::Color(30, 30, 30));
 		window.setView(view);
-		player.Draw(window);
 
-		CornerTL.Draw(window);
-		CornerT01.Draw(window);
-		CornerT02.Draw(window);
-		CornerT03.Draw(window);
-		CornerT04.Draw(window);
-		CornerT05.Draw(window);
-		CornerT06.Draw(window);
-		CornerT07.Draw(window);
-		CornerT08.Draw(window);
-		CornerT09.Draw(window);
-		CornerT10.Draw(window);
-		CornerT11.Draw(window);
-		CornerT12.Draw(window);
-		CornerT13.Draw(window);
-		CornerT14.Draw(window);
-		CornerT15.Draw(window);
-		CornerTR.Draw(window);
-		CornerR01.Draw(window);
-		CornerR02.Draw(window);
-		CornerR03.Draw(window);
-		CornerR04.Draw(window);
-		CornerR05.Draw(window);
-		CornerR06.Draw(window);
-		CornerR07.Draw(window);
-		CornerR08.Draw(window);
-		CornerR09.Draw(window);
-		CornerR10.Draw(window);
-		CornerR11.Draw(window);
-		CornerBR.Draw(window);
-		CornerBL.Draw(window);
-		CornerB01.Draw(window);
-		CornerB02.Draw(window);
-		CornerB03.Draw(window);
-		CornerB04.Draw(window);
-		CornerB05.Draw(window);
-		CornerB06.Draw(window);
-		CornerB07.Draw(window);
-		CornerB08.Draw(window);
-		CornerB09.Draw(window);
-		CornerB10.Draw(window);
-		CornerB11.Draw(window);
-		CornerB12.Draw(window);
-		CornerB13.Draw(window);
-		CornerB14.Draw(window);
-		CornerB15.Draw(window);
-		CornerL01.Draw(window);
-		CornerL02.Draw(window);
-		CornerL03.Draw(window);
-		CornerL04.Draw(window);
-		CornerL05.Draw(window);
-		CornerL06.Draw(window);
-		CornerL07.Draw(window);
-		CornerL08.Draw(window);
-		CornerL09.Draw(window);
-		CornerL10.Draw(window);
-		CornerL11.Draw(window);
+		if (play == 1)
+		{
+			window.setMouseCursorVisible(false);
+			player.Draw(window);
 
-		block1c.Draw(window);
-		block1d.Draw(window);
-		block1e.Draw(window);
-		block1f.Draw(window);
-		block1g.Draw(window);
-		block1h.Draw(window);
-		block1i.Draw(window);
-		block1j.Draw(window);
-		block1k.Draw(window);
-		block1l.Draw(window);
-		block1m.Draw(window);
-		block1n.Draw(window);
-		block1o.Draw(window);
+			CornerTL.Draw(window);
+			CornerT01.Draw(window);
+			CornerT02.Draw(window);
+			CornerT03.Draw(window);
+			CornerT04.Draw(window);
+			CornerT05.Draw(window);
+			CornerT06.Draw(window);
+			CornerT07.Draw(window);
+			CornerT08.Draw(window);
+			CornerT09.Draw(window);
+			CornerT10.Draw(window);
+			CornerT11.Draw(window);
+			CornerT12.Draw(window);
+			CornerT13.Draw(window);
+			CornerT14.Draw(window);
+			CornerT15.Draw(window);
+			CornerTR.Draw(window);
+			CornerR01.Draw(window);
+			CornerR02.Draw(window);
+			CornerR03.Draw(window);
+			CornerR04.Draw(window);
+			CornerR05.Draw(window);
+			CornerR06.Draw(window);
+			CornerR07.Draw(window);
+			CornerR08.Draw(window);
+			CornerR09.Draw(window);
+			CornerR10.Draw(window);
+			CornerR11.Draw(window);
+			CornerBR.Draw(window);
+			CornerBL.Draw(window);
+			CornerB01.Draw(window);
+			CornerB02.Draw(window);
+			CornerB03.Draw(window);
+			CornerB04.Draw(window);
+			CornerB05.Draw(window);
+			CornerB06.Draw(window);
+			CornerB07.Draw(window);
+			CornerB08.Draw(window);
+			CornerB09.Draw(window);
+			CornerB10.Draw(window);
+			CornerB11.Draw(window);
+			CornerB12.Draw(window);
+			CornerB13.Draw(window);
+			CornerB14.Draw(window);
+			CornerB15.Draw(window);
+			CornerL01.Draw(window);
+			CornerL02.Draw(window);
+			CornerL03.Draw(window);
+			CornerL04.Draw(window);
+			CornerL05.Draw(window);
+			CornerL06.Draw(window);
+			CornerL07.Draw(window);
+			CornerL08.Draw(window);
+			CornerL09.Draw(window);
+			CornerL10.Draw(window);
+			CornerL11.Draw(window);
 
-		block2b.Draw(window);
-		block2c.Draw(window);
-		block2d.Draw(window);
-		block2e.Draw(window);
-		block2f.Draw(window);
-		block2g.Draw(window);
-		block2h.Draw(window);
-		block2i.Draw(window);
-		block2j.Draw(window);
-		block2k.Draw(window);
-		block2l.Draw(window);
-		block2m.Draw(window);
-		block2n.Draw(window);
-		block2o.Draw(window);
+			block1c.Draw(window);
+			block1d.Draw(window);
+			block1e.Draw(window);
+			block1f.Draw(window);
+			block1g.Draw(window);
+			block1h.Draw(window);
+			block1i.Draw(window);
+			block1j.Draw(window);
+			block1k.Draw(window);
+			block1l.Draw(window);
+			block1m.Draw(window);
+			block1n.Draw(window);
+			block1o.Draw(window);
 
-		block3b.Draw(window);
-		block3c.Draw(window);
-		block3d.Draw(window);
-		block3e.Draw(window);
-		block3f.Draw(window);
-		block3g.Draw(window);
-		block3h.Draw(window);
-		block3i.Draw(window);
-		block3j.Draw(window);
-		block3k.Draw(window);
-		block3l.Draw(window);
-		block3m.Draw(window);
-		block3n.Draw(window);
-		block3o.Draw(window);
+			block2b.Draw(window);
+			block2c.Draw(window);
+			block2d.Draw(window);
+			block2e.Draw(window);
+			block2f.Draw(window);
+			block2g.Draw(window);
+			block2h.Draw(window);
+			block2i.Draw(window);
+			block2j.Draw(window);
+			block2k.Draw(window);
+			block2l.Draw(window);
+			block2m.Draw(window);
+			block2n.Draw(window);
+			block2o.Draw(window);
 
-		block4b.Draw(window);
-		block4c.Draw(window);
-		block4d.Draw(window);
-		block4e.Draw(window);
-		block4f.Draw(window);
-		block4g.Draw(window);
-		block4h.Draw(window);
-		block4i.Draw(window);
-		block4j.Draw(window);
-		block4k.Draw(window);
-		block4l.Draw(window);
-		block4m.Draw(window);
-		block4n.Draw(window);
-		block4o.Draw(window);
+			block3b.Draw(window);
+			block3c.Draw(window);
+			block3d.Draw(window);
+			block3e.Draw(window);
+			block3f.Draw(window);
+			block3g.Draw(window);
+			block3h.Draw(window);
+			block3i.Draw(window);
+			block3j.Draw(window);
+			block3k.Draw(window);
+			block3l.Draw(window);
+			block3m.Draw(window);
+			block3n.Draw(window);
+			block3o.Draw(window);
 
-		block6b.Draw(window);
-		block6d.Draw(window);
-		block6f.Draw(window);
-		block6h.Draw(window);
-		block6j.Draw(window);
-		block6l.Draw(window);
-		block6n.Draw(window);
+			block4b.Draw(window);
+			block4c.Draw(window);
+			block4d.Draw(window);
+			block4e.Draw(window);
+			block4f.Draw(window);
+			block4g.Draw(window);
+			block4h.Draw(window);
+			block4i.Draw(window);
+			block4j.Draw(window);
+			block4k.Draw(window);
+			block4l.Draw(window);
+			block4m.Draw(window);
+			block4n.Draw(window);
+			block4o.Draw(window);
 
-		block8b.Draw(window);
-		block8d.Draw(window);
-		block8f.Draw(window);
-		block8h.Draw(window);
-		block8j.Draw(window);
-		block8l.Draw(window);
-		block8n.Draw(window);
+			block5b.Draw(window);
+			block5c.Draw(window);
+			block5d.Draw(window);
+			block5e.Draw(window);
+			block5f.Draw(window);
+			block5g.Draw(window);
+			block5h.Draw(window);
+			block5i.Draw(window);
+			block5j.Draw(window);
+			block5k.Draw(window);
+			block5l.Draw(window);
+			block5m.Draw(window);
+			block5n.Draw(window);
+			block5o.Draw(window);
 
-		block10b.Draw(window);
-		block10d.Draw(window);
-		block10f.Draw(window);
-		block10h.Draw(window);
-		block10j.Draw(window);
-		block10l.Draw(window);
-		block10n.Draw(window);
+			block6b.Draw(window);
+			block6c.Draw(window);
+			block6d.Draw(window);
+			block6e.Draw(window);
+			block6f.Draw(window);
+			block6g.Draw(window);
+			block6h.Draw(window);
+			block6i.Draw(window);
+			block6j.Draw(window);
+			block6k.Draw(window);
+			block6l.Draw(window);
+			block6m.Draw(window);
+			block6n.Draw(window);
+			block6o.Draw(window);
+
+			block7b.Draw(window);
+			block7c.Draw(window);
+			block7d.Draw(window);
+			block7e.Draw(window);
+			block7f.Draw(window);
+			block7g.Draw(window);
+			block7h.Draw(window);
+			block7i.Draw(window);
+			block7j.Draw(window);
+			block7k.Draw(window);
+			block7l.Draw(window);
+			block7m.Draw(window);
+			block7n.Draw(window);
+			block7o.Draw(window);
+
+			block8b.Draw(window);
+			block8c.Draw(window);
+			block8d.Draw(window);
+			block8e.Draw(window);
+			block8f.Draw(window);
+			block8g.Draw(window);
+			block8h.Draw(window);
+			block8i.Draw(window);
+			block8j.Draw(window);
+			block8k.Draw(window);
+			block8l.Draw(window);
+			block8m.Draw(window);
+			block8n.Draw(window);
+			block8o.Draw(window);
+
+			block10b.Draw(window);
+			block10d.Draw(window);
+			block10f.Draw(window);
+			block10h.Draw(window);
+			block10j.Draw(window);
+			block10l.Draw(window);
+			block10n.Draw(window);
+		}
+		else
+		{
+			if (play == 2)
+			{
+				//menu.draw 
+			}
+			else
+			{
+				if (play == 3)
+				{
+					credits.draw(window);
+				}
+				else
+					menu.draw(window);
+					window.setMouseCursorVisible(true);
+			}
+		}
+
 
 		window.display();
 	}
 	return 0;
-} //by kR#8726
+}
