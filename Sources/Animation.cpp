@@ -1,10 +1,9 @@
 #include "../Headers/Animation.h"
 
-
-
 Animation::Animation(sf::Texture* txtr, sf::Vector2u imgCount, float switchTime)
 {
 	this->switchTime = switchTime;
+	this->imgCount = imgCount;
 	totalTime = 0.0f;
 	currentImg.x = 0;
 

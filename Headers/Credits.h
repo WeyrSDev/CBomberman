@@ -14,4 +14,3 @@ private:
 	sf::Font font;
 	sf::Text credits[MAX_NUMBER_OF_ITEMS];
 };
-

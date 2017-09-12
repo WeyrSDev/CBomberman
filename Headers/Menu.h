@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "Credits.h"
 
 #define MAX_NUMBER_OF_ITEMS 4
 class Menu
@@ -18,4 +19,3 @@ private:
 	sf::Font font;
 	sf::Text menu[MAX_NUMBER_OF_ITEMS];
 };
-

@@ -1,6 +1,5 @@
 #include "../Headers/Menu.h"
 
-
 Menu::Menu(float width, float height)
 {
 	if (!font.loadFromFile("resources/Lato-Regular.ttf"))
