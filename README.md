@@ -1,3 +1,3 @@
-# CBomberman
+[![GitHub tag](https://img.shields.io/github/tag/KrKK/CBomberman.svg)](https://github.com/KrKK/CBomberman/releases)
 
-just another Bomberman in C++ with SFML
+# CBomberman
