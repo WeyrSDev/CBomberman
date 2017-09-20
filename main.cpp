@@ -1,18 +1,19 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include "Headers\Player.h"
 #include "Headers\Block.h"
 #include "Headers\Menu.h"
 #include "Headers\Options.h"
 
 float VIEW_HEIGHT = 750.0f;
-float playtime = 120.0f;
-
-std::string Version = "0.2.2";
-std::string GameName = "CBomberman ";
-
+float playtime = 120.0f;								//todo
+std::string Version = "0.3", GameName = "CBomberman";	// name and version
+std::string line;
+int ResW, ResH, nline = 1;
 int play = 0;
-int esc = 0;
+
+
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
 	float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
@@ -22,9 +23,37 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 int main()
 {
 	std::cout << "Loading..." << std::endl;
-	sf::RenderWindow window(sf::VideoMode(VIEW_HEIGHT, VIEW_HEIGHT), GameName + Version , sf::Style::Close | sf::Style::Resize);
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 
+	std::fstream file;
+	file.open("config/options.ini");
+
+	if (file.good() == false)
+	{
+		std::cout << "I hasn't got permissions or there isn't options.ini" << std::endl;
+
+		file << 1280 << std::endl;
+		file << 720 << std::endl;
+		file.close();
+	}
+	else
+	{
+		while (std::getline(file, line))
+		{
+			switch (nline)
+			{
+			case 1:
+				ResW = atoi(line.c_str());
+				break;
+			case 2:
+				ResH = atoi(line.c_str());
+				break;
+			}
+			nline++;
+		}
+	}
+	sf::RenderWindow window(sf::VideoMode(VIEW_HEIGHT, VIEW_HEIGHT), GameName + " " + Version , sf::Style::Close | sf::Style::Resize);
+
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 	sf::Texture playerTxtr;
 	sf::Texture blockTxtr1;
 	sf::Texture blockTxtr2;
@@ -274,9 +303,9 @@ int main()
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
-
+	window.setSize(sf::Vector2u(ResW, ResH)); //Set resolution
+	file.close();
 	std::cout << "All loaded!" << std::endl;
-
 	while (window.isOpen())
 	{
 		deltaTime = clock.restart().asSeconds() * 2;
@@ -570,10 +599,9 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			play = 0;
-		if (play == 1)
+		if (play == 1) //Game
 		{
 			window.setMouseCursorVisible(false);
-			esc = 1;
 			player.Draw(window);
 
 			CornerTL.Draw(window);
@@ -762,7 +790,7 @@ int main()
 		}
 		else
 		{
-			if (play == 2)
+			if (play == 2)	//Options
 			{
 				options.draw(window);
 			}
